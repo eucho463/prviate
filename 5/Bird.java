@@ -1,14 +1,5 @@
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.image.ImageObserver;
-
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
 public class Bird extends MovingImage {
 
 	private double velX, velY;
@@ -16,11 +7,7 @@ public class Bird extends MovingImage {
 	public Bird(int x, int y)
 	{
 		super("bird.png",x,y,40,50);
-
-		
 	}
-
-
 
 	public void fall()
 	{
@@ -35,38 +22,36 @@ public class Bird extends MovingImage {
 
 	public void jump()
 	{
-
 		{
 			velX = 5;
 			velY= -20;
 			System.out.println("birdjump");
 			moveByAmount((int)velX,(int)velY);
-	
 		}
 	}
-
-
+	
+	public boolean intersects(Pipes pipes) {
+		int x = this.getX()+this.getWidth()/2;
+		int y = this.getY()+this.getHeight()/2;
+		
+		for (Rectangle rect: pipes.getPipes())
+		{
+			if((x> rect.x && x< rect.x +rect.width) &&
+			   (y> rect.y && y< rect.y +rect.height))	{
+				return true;
+			
+			}
+		}
+		return false;
+	}
 
 		public void stop()
 		{
-			
+			{
 				velX = 0;
 				velY=  0;
 				moveByAmount((int)velX,(int)velY);
-				System.out.println("stop");
-				
-			
+			}
 		}
-
-
-//		public boolean intersects(PipesObject pipe) {
-//			// TODO Auto-generated method stub
-//			return false;
-//		}
-
-
-
-
-
 
 }
